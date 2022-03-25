@@ -120,6 +120,11 @@ RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
     TriggerServerEvent("police:server:UpdateBlips")
 end)
 
+RegisterNetEvent("qb-burgershot:DutyB")
+AddEventHandler("qb-burgershot:DutyB", function()
+    TriggerServerEvent("QBCore:ToggleDuty")
+end)
+
 RegisterNetEvent('police:client:sendBillingMail', function(amount)
     SetTimeout(math.random(2500, 4000), function()
         local gender = Lang:t('info.mr')
@@ -204,8 +209,8 @@ end)
 
 RegisterNetEvent('police:client:SendPoliceEmergencyAlert', function()
     local Player = QBCore.Functions.GetPlayerData()
-    TriggerServerEvent('police:server:policeAlert', Lang:t('info.officer_down', {lastname = Player.charinfo.lastname, callsign = Player.metadata.callsign}))
-    TriggerServerEvent('hospital:server:ambulanceAlert', Lang:t('info.officer_down', {lastname = Player.charinfo.lastname, callsign = Player.metadata.callsign}))
+    TriggerServerEvent('police:server:policeAlert', Lang:t('info.officer_down', {firstname = Player.charinfo.firstname, callsign = Player.metadata.callsign}))
+    TriggerServerEvent('hospital:server:ambulanceAlert', Lang:t('info.officer_down', {firstname = Player.charinfo.firstname, callsign = Player.metadata.callsign}))
 end)
 
 -- Threads

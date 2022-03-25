@@ -17,7 +17,7 @@ local function UpdateBlips()
             local heading = GetEntityHeading(GetPlayerPed(v.PlayerData.source))
             dutyPlayers[#dutyPlayers+1] = {
                 source = v.PlayerData.source,
-                label = v.PlayerData.metadata["callsign"],
+                label = v.PlayerData.charinfo.firstname,
                 job = v.PlayerData.job.name,
                 location = {
                     x = coords.x,
@@ -193,6 +193,16 @@ QBCore.Commands.Add("cuff", Lang:t("commands.cuff_player"), {}, false, function(
     local Player = QBCore.Functions.GetPlayer(src)
     if Player.PlayerData.job.name == "police" and Player.PlayerData.job.onduty then
         TriggerClientEvent("police:client:CuffPlayer", src)
+    else
+        TriggerClientEvent('QBCore:Notify', src, Lang:t("error.on_duty_police_only"), 'error')
+    end
+end)
+
+QBCore.Commands.Add("uncuff", Lang:t("commands.uncuff_player"), {}, false, function(source, args)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    if Player.PlayerData.job.name == "police" and Player.PlayerData.job.onduty then
+        TriggerClientEvent("police:client:GetUnCuffed", src)
     else
         TriggerClientEvent('QBCore:Notify', src, Lang:t("error.on_duty_police_only"), 'error')
     end

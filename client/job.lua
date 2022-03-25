@@ -127,7 +127,7 @@ function TakeOutImpound(vehicle)
                 QBCore.Functions.SetVehicleProperties(veh, properties)
                 SetVehicleNumberPlateText(veh, vehicle.plate)
                 SetEntityHeading(veh, coords.w)
-                exports['LegacyFuel']:SetFuel(veh, vehicle.fuel)
+                exports['lj-fuel']:SetFuel(veh, vehicle.fuel)
                 doCarDamage(veh, vehicle)
                 TriggerServerEvent('police:server:TakeOutImpound',vehicle.plate)
                 closeMenuFull()
@@ -146,7 +146,7 @@ function TakeOutVehicle(vehicleInfo)
             SetCarItemsInfo()
             SetVehicleNumberPlateText(veh, Lang:t('info.police_plate')..tostring(math.random(1000, 9999)))
             SetEntityHeading(veh, coords.w)
-            exports['LegacyFuel']:SetFuel(veh, 100.0)
+            exports['lj-fuel']:SetFuel(veh, 100.0)
             closeMenuFull()
             if Config.VehicleSettings[vehicleInfo] ~= nil then
                 QBCore.Shared.SetDefaultVehicleExtras(veh, Config.VehicleSettings[vehicleInfo].extras)
@@ -333,7 +333,7 @@ RegisterNetEvent('police:client:ImpoundVehicle', function(fullImpound, price)
     local vehicle = QBCore.Functions.GetClosestVehicle()
     local bodyDamage = math.ceil(GetVehicleBodyHealth(vehicle))
     local engineDamage = math.ceil(GetVehicleEngineHealth(vehicle))
-    local totalFuel = exports['LegacyFuel']:GetFuel(vehicle)
+    local totalFuel = exports['lj-fuel']:GetFuel(vehicle)
     if vehicle ~= 0 and vehicle then
         local ped = PlayerPedId()
         local pos = GetEntityCoords(ped)
@@ -452,32 +452,24 @@ end)
 -- Threads
 
 -- Toggle Duty
-CreateThread(function()
-    while true do
-        local sleep = 2000
-        if LocalPlayer.state.isLoggedIn and PlayerJob.name == "police" then
-            local pos = GetEntityCoords(PlayerPedId())
-
-            for k, v in pairs(Config.Locations["duty"]) do
-                if #(pos - v) < 5 then
-                    sleep = 5
-                    if #(pos - v) < 1.5 then
-                        if not onDuty then
-                            DrawText3D(v.x, v.y, v.z, Lang:t('info.on_duty'))
-                        else
-                            DrawText3D(v.x, v.y, v.z, Lang:t('info.off_duty'))
-                        end
-                        if IsControlJustReleased(0, 38) then
-                            TriggerEvent('qb-policejob:ToggleDuty')
-                        end
-                    elseif #(pos - v) < 2.5 then
-                        DrawText3D(v.x, v.y, v.z, Lang:t('info.onoff_duty'))
-                    end
-                end
-            end
-        end
-        Wait(sleep)
-    end
+Citizen.CreateThread(function()
+    exports['qb-target']:AddBoxZone("PoliceDuty", vector3(441.75, -982.0, 30.69), 0.5, 0.8, {
+        name = "PoliceDuty",
+        heading = 270,
+        debugPoly=false,
+        minZ=27.09,
+        maxZ=31.09,
+    }, {
+        options = {
+            {  
+            event = "qb-policejob:ToggleDuty",
+            icon = "far fa-clipboard",
+            label = "Duty On/Off",
+            job = "police",
+            },
+        },
+        distance = 1.5
+    })
 end)
 
 -- Stash 1
@@ -682,7 +674,7 @@ CreateThread(function()
                                         SetVehicleMod(veh, 0, 48)
                                         SetVehicleNumberPlateText(veh, "ZULU"..tostring(math.random(1000, 9999)))
                                         SetEntityHeading(veh, coords.w)
-                                        exports['LegacyFuel']:SetFuel(veh, 100.0)
+                                        exports['lj-fuel']:SetFuel(veh, 100.0)
                                         closeMenuFull()
                                         TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
                                         TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))

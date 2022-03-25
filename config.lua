@@ -12,19 +12,21 @@ Config.MaxSpikes = 5
 
 Config.HandCuffItem = 'handcuffs'
 
+Config.UncuffTimer = math.random(7,10) -- Time on how fast the circle goes around. The lower the value = faster it is!
+
 Config.LicenseRank = 2
 Config.Locations = {
-    ["duty"] = {
-        [1] = vector3(440.085, -974.924, 30.689),
-        [2] = vector3(-449.811, 6012.909, 31.815),
-    },
-    ["vehicle"] = {
+    -- ["duty"] = {
+    --     [1] = vector3(440.085, -974.924, 30.689),
+    --     [2] = vector3(-449.811, 6012.909, 31.815),
+    -- },
+    ["vehicle"] = { -- belum set lagi
         [1] = vector4(448.159, -1017.41, 28.562, 90.654),
         [2] = vector4(471.13, -1024.05, 28.17, 274.5),
         [3] = vector4(-455.39, 6002.02, 31.34, 87.93),
     },
     ["stash"] = {
-        [1] = vector3(453.075, -980.124, 30.889),
+        [1] = vector3(448.48, -996.88, 30.69),
     },
     ["impound"] = {
         [1] = vector4(436.68, -1007.42, 27.32, 180.0),
@@ -35,18 +37,18 @@ Config.Locations = {
         [2] = vector4(-475.43, 5988.353, 31.716, 31.34),
     },
     ["armory"] = {
-        [1] = vector3(462.23, -981.12, 30.68),
+        [1] = vector3(482.59, -995.19, 30.69),
     },
     ["trash"] = {
-        [1] = vector3(439.0907, -976.746, 30.776),
+        [1] = vector3(473.21, -991.5, 26.21),
     },
     ["fingerprint"] = {
-        [1] = vector3(460.9667, -989.180, 24.92),
+        [1] = vector3(474.12, -1014.34, 24.22),
     },
     ["evidence"] = {
-        [1] = vector3(442.1722, -996.067, 30.689),
-        [2] = vector3(451.7031, -973.232, 30.689),
-        [3] = vector3(455.1456, -985.462, 30.689),
+        [1] = vector3(487.28, -987.17, 30.69),
+        [2] = vector3(481.03, -990.36, 30.69),
+        [3] = vector3(487.28, -991.22, 30.69),
     },
     ["stations"] = {
         [1] = {label = "Police Station", coords = vector4(428.23, -984.28, 29.76, 3.5)},
