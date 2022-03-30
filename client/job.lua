@@ -652,6 +652,7 @@ CreateThread(function()
             exports['qb-core']:HideText()
         end
     end)
+ end)
 
 -- Helicopter
 CreateThread(function()
