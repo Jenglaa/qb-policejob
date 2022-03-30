@@ -15,6 +15,8 @@ Config.HandCuffItem = 'handcuffs'
 Config.UncuffTimer = math.random(7,10) -- Time on how fast the circle goes around. The lower the value = faster it is!
 
 Config.LicenseRank = 2
+
+Config.UseTarget = GetConvar('UseTarget', 'false') == 'true'
 Config.Locations = {
     -- ["duty"] = {
     --     [1] = vector3(440.085, -974.924, 30.689),
